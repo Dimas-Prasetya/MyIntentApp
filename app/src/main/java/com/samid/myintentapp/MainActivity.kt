@@ -9,6 +9,10 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    companion object {
+        private const val REQUEST_CODE = 100
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,6 +25,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btnDialPhone: Button = findViewById(R.id.btn_dial_number)
         btnDialPhone.setOnClickListener(this)
+
+        val btnMoveWithObject: Button = findViewById(R.id.btn_move_activity_object)
+        btnMoveWithObject.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -41,6 +48,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val phoneNumber = "085786898695"
                 val dialPhoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
                 startActivity(dialPhoneIntent)
+            }
+
+            R.id.btn_move_activity_object -> {
+                val person = Person (
+                    "Dicoding Academy",
+                    5,
+                    "academy@dicoding.com",
+                    "Bandung"
+                )
+
+                val moveWithObjectIntent = Intent(this@MainActivity, MoveWithObjectActivity::class.java)
+                moveWithObjectIntent.putExtra(MoveWithObjectActivity.EXTRA_PERSON, person)
+                startActivity(moveWithObjectIntent)
             }
         }
     }
